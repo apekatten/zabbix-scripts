@@ -21,8 +21,8 @@ fi
 # Script running on correct OS? (Ubuntu "Xenial" 16.04 LTS)
 if [[ $(lsb_release -sc) != "xenial" ]]; then
     echo "ERROR: Please use a supported version of Ubuntu!"
-    echo "Gyldig versjon:     Ubuntu 16.04.x LTS"
-    echo "Installert versjon:" $(lsb_release -sd)
+    echo "Supported version:     Ubuntu 16.04.x LTS"
+    echo "Installed version:" $(lsb_release -sd)
     exit 1
 fi
 
@@ -38,7 +38,7 @@ read -p "Zabbix Server IP ["$default_server"]: " serverip
 serverip=${serverip:-$default_server}
 echo $serverip
 
-read -p "MySQL Passord: [Generate random]" password
+read -p "MySQL Password: [Generate random]" password
 password=${password:-$randpw}
 echo $password
 
