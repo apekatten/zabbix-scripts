@@ -105,3 +105,7 @@ echo "LogSlowQueries=3000" >> /etc/zabbix/zabbix_proxy.conf
 # Restart Zabbix services
 service zabbix-proxy restart
 service zabbix-agent restart
+
+# Autostart services on boot
+systemctl enable zabbix-proxy
+systemctl enable zabbix-agent
