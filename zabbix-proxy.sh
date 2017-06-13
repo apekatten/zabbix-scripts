@@ -107,5 +107,5 @@ service zabbix-proxy restart
 service zabbix-agent restart
 
 # Autostart services on boot
-systemctl enable zabbix-proxy
-systemctl enable zabbix-agent
+systemctl enable zabbix-agent.service
+systemctl enable zabbix-proxy.service
