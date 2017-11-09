@@ -47,8 +47,8 @@ apt-get -y update
 apt-get -y dist-upgrade
 
 # Add Zabbix 3.2 repository
-wget http://repo.zabbix.com/zabbix/3.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.2-1+xenial_all.deb
-dpkg -i zabbix-release_3.2-1+xenial_all.deb
+wget http://repo.zabbix.com/zabbix/3.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.4-1+xenial_all.deb
+dpkg -i zabbix-release_3.4-1+xenial_all.deb
 apt-get -y update
 
 # Install MySQL / MariaDB
