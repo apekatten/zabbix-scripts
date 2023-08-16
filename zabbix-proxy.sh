@@ -5,7 +5,7 @@
 ###  https://github.com/apekatten/zabbix-scripts      ###
 ###                                                   ###
 ###  Supported versions:                              ###
-###   - Ubuntu "Xenial" 16.04.x LTS                   ###
+###   - Ubuntu "Jammy" 22.04.x LTS                    ###
 ###                                                   ###
 #########################################################
 
@@ -18,10 +18,10 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-# Script running on correct OS? (Ubuntu "Xenial" 16.04 LTS)
-if [[ $(lsb_release -sc) != "xenial" ]]; then
+# Script running on correct OS? (Ubuntu "Jammy" 22.04 LTS)
+if [[ $(lsb_release -sc) != "jammy" ]]; then
     echo "ERROR: Please use a supported version of Ubuntu!"
-    echo "Supported version:     Ubuntu 16.04.x LTS"
+    echo "Supported version:     Ubuntu 22.04.x LTS"
     echo "Installed version:" $(lsb_release -sd)
     exit 1
 fi
@@ -46,9 +46,9 @@ echo $password
 apt-get -y update
 apt-get -y dist-upgrade
 
-# Add Zabbix 3.2 repository
-wget http://repo.zabbix.com/zabbix/3.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.4-1+xenial_all.deb
-dpkg -i zabbix-release_3.4-1+xenial_all.deb
+# Add Zabbix 6.4 repository
+wget https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.4-1+ubuntu22.04_all.deb
+dpkg -i zabbix-release_6.4-1+ubuntu22.04_all.deb
 apt-get -y update
 
 # Install MySQL / MariaDB
@@ -62,8 +62,11 @@ mysql -uroot -p$password -e "CREATE DATABASE zabbix_proxy"
 # Install Zabbix Proxy and Agent
 apt-get -y install zabbix-proxy-mysql zabbix-agent
 
+# Install other useful tools
+apt-get -y install traceroute net-tools fping
+
 # Add Zabbix schema to database
-zcat /usr/share/doc/zabbix-proxy-mysql/schema.sql.gz | mysql -uroot -p$password zabbix_proxy
+cat /usr/share/zabbix-sql-scripts/mysql/proxy.sql | mysql -uroot -p$password zabbix_proxy
 
 # Backup the default config files
 mv /etc/zabbix/zabbix_proxy.conf /etc/zabbix/zabbix_proxy.conf.dist
